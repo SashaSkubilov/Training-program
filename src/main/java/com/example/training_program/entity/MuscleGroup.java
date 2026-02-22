@@ -2,10 +2,13 @@ package com.example.training_program.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+
 import java.util.List;
 
 @Entity
-@Getter @Setter @NoArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
 public class MuscleGroup {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

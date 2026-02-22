@@ -2,11 +2,14 @@ package com.example.training_program.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+
 import java.util.List;
 
 @Entity
 @Table(name = "users") // Важно: "user" — это системное слово в БД, поэтому называем таблицу "users"
-@Getter @Setter @NoArgsConstructor
+@Getter
+@Setter
+@NoArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
