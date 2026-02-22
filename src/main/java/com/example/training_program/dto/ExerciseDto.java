@@ -2,8 +2,9 @@ package com.example.training_program.dto;
 
 import lombok.Data;
 
-@Data // Генерирует геттеры и сеттеры
+@Data // Эта магия создаст setId, getId и прочие методы автоматически
 public class ExerciseDto {
+    private Long id;
     private String name;
-    private String description; // Сюда мы "склеим" подходы, веса и время
+    private String muscleGroupName;
 }

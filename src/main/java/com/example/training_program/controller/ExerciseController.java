@@ -4,29 +4,46 @@ import com.example.training_program.dto.ExerciseDto;
 import com.example.training_program.service.ExerciseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
-@RestController // Говорим Spring, что этот класс отвечает за API
-@RequestMapping("/api/exercises") // Базовый адрес для всех запросов в этом классе
+@RestController
+@RequestMapping("/api/exercises")
 public class ExerciseController {
 
     @Autowired
     private ExerciseService service;
 
-    // 1. GET endpoint с @PathVariable
-    // Пример вызова: http://localhost:8080/api/exercises/1
-    // Мы берем ID прямо из части ссылки
     @GetMapping("/{id}")
     public ExerciseDto getExerciseById(@PathVariable Long id) {
         return service.getById(id);
     }
 
-    // 2. GET endpoint с @RequestParam
-    // Пример вызова: http://localhost:8080/api/exercises?muscleGroup=Back
-    // Мы берем параметры после знака вопроса
     @GetMapping
     public List<ExerciseDto> getExercisesByGroup(@RequestParam String muscleGroup) {
         return service.getByMuscleGroup(muscleGroup);
+    }
+
+    @PostMapping
+    public ExerciseDto createExercise(@RequestBody ExerciseDto dto) {
+        return service.save(dto);
+    }
+
+    @PutMapping("/{id}")
+    public ExerciseDto updateExercise(@PathVariable Long id, @RequestBody ExerciseDto dto) {
+        dto.setId(id);
+        return service.save(dto);
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteExercise(@PathVariable Long id) {
+        service.delete(id);
+    }
+
+    @GetMapping("/search")
+    public List<ExerciseDto> search(
+            @RequestParam String group,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        return service.searchWithIndex(group, page, size);
     }
 }
