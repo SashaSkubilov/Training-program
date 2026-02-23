@@ -1,15 +1,23 @@
 package com.example.training_program.entity;
 
-import jakarta.persistence.*;
-import lombok.*;
-
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import java.util.List;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 public class MuscleGroup {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -17,8 +25,6 @@ public class MuscleGroup {
     private String name;
 
     // У одной группы мышц (например, Спина) может быть много упражнений
-    @OneToMany(mappedBy = "muscleGroup",
-            cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY) // Указываем явно для 4-го пункта
+    @OneToMany(mappedBy = "muscleGroup", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Exercise> exercises;
 }
